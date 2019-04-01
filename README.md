@@ -2,9 +2,11 @@
 
 Some users use ad blockers (or other network filters) which will block Google Analytics scripts and requests. Inaccurate data is bad. This repository offers a tiny Nginx proxy for Google Analytics and Google Tag Manager to get metrics for people with blockers.
 
+The proxy carefully forwards the client real IP address to Analytics using the [Google Analytics Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uip) URL parameter. So you don't have to worry seeing the proxy's IP instead of client's in GA.
+
 ## Usage
 1. Have a look at `Dockerfile` and `nginx.conf`. Basically you will only need to override `GAPROXY_HOST` environment variable to get the proxy work.
-2. If this proxy is placed behind another reverse proxy, add `X-Real-IP` header in the front reverse proxy. (for geo-location rectify)
+2. If this proxy is placed behind another reverse proxy, add `X-Real-IP` header in the front reverse proxy so `google-analytics-proxy` can forward the real client IP to Google Analytics. 
 3. Replace `gtag.js`, `analytics.js`, `gtm.js`, `ns.html` with the one under your proxy domain.
 
 ### Deploy in Kubernetes cluster
