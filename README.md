@@ -4,7 +4,8 @@ Some users use ad blockers (or other network filters) which will block Google An
 
 ## Usage
 1. Have a look at `Dockerfile` and `nginx.conf`. Basically you will only need to override `GAPROXY_HOST` environment variable to get the proxy work.
-2. Replace `gtag.js`, `analytics.js`, `gtm.js`, `ns.html` with the one under your proxy domain.
+2. If this proxy is placed behind another reverse proxy, add `X-Real-IP` header in the front reverse proxy. (for geo-location rectify)
+3. Replace `gtag.js`, `analytics.js`, `gtm.js`, `ns.html` with the one under your proxy domain.
 
 ### Deploy in Kubernetes cluster
 
@@ -72,3 +73,6 @@ spec:
   externalTrafficPolicy: "Cluster"
   type: LoadBalancer
 ```
+
+## Special note
+The user's IP (geo-location) may be replaced by the proxy server in Google Analytics. If you found such situation, please open an issue and make a pull request if possible.

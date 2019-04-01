@@ -6,6 +6,6 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.template
 # More info: https://github.com/docker-library/docs/tree/master/nginx#using-environment-variables-in-nginx-configuration
 # Use the `VIRTUAL_HOST` environment variable by default to make this a minimal config when used in combination with `nginx-proxy`. If you wish to customize the domain, you can use `GAPROXY_HOST` instead.
 CMD GAPROXY_HOST="${GAPROXY_HOST:=$VIRTUAL_HOST}" \
-	envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf \
+	envsubst '${GAPROXY_HOST}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf \
 	&& echo "Starting nginx" \
 	&& exec nginx -g 'daemon off;'
