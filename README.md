@@ -75,6 +75,3 @@ spec:
   externalTrafficPolicy: "Cluster"
   type: LoadBalancer
 ```
-
-## Special note
-The user's IP (geo-location) may be replaced by the proxy server in Google Analytics. If you found such situation, please open an issue and make a pull request if possible.
